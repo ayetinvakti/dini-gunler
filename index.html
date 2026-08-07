@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'light' || (!savedTheme && !systemPrefersDark)) {
+            document.documentElement.classList.add('light-mode');
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dini Günler | Ayetin Vakti</title>
+
+    <meta name="theme-color" content="#10b981">
+
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --card-bg: #1e293b;
+            --accent-color: #10b981;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .navbar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .app-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-family: 'Georgia', serif;
+        }
+
+        .page-header-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 6px;
+        }
+
+        .page-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .days-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .day-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .day-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .day-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .day-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .day-hicri {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .day-date-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 95px;
+        }
+
+        .day-date {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .day-dayname {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .footer {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .footer span { color: var(--accent-color); font-weight: 600; }
+
+        body.light-mode {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="https://ayetinvakti.github.io/Namaz-vakitleri/" class="back-btn" aria-label="Geri Dön">←</a>
+            <a href="#" class="app-title">Dini Günler ve Geceler</a>
+        </div>
+    </header>
+
+    <div class="page-header-card">
+        <div class="page-title">📅 Mübarek Gün ve Geceler</div>
+        <div class="page-desc">Hicri takvime göre yıl içerisindeki kandiller, dini bayramlar ve önemli gecelerin listesi.</div>
+    </div>
+
+    <div class="days-list">
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Regaip Kandili</div>
+                <div class="day-hicri">Recep Ayı, İlk Perşembe Gecesi</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">25 Aralık 2025</div>
+                <div class="day-dayname">Perşembe</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Miraç Kandili</div>
+                <div class="day-hicri">Recep Ayı, 27. Gece</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">15 Ocak 2026</div>
+                <div class="day-dayname">Perşembe</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Berat Kandili</div>
+                <div class="day-hicri">Şaban Ayı, 15. Gece</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">1 Şubat 2026</div>
+                <div class="day-dayname">Pazar</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Ramazan Başlangıcı (İlk Sahur)</div>
+                <div class="day-hicri">1 Ramazan 1447</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">18 Şubat 2026</div>
+                <div class="day-dayname">Çarşamba</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Kadir Gecesi</div>
+                <div class="day-hicri">Ramazan Ayı, 27. Gece</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">16 Mart 2026</div>
+                <div class="day-dayname">Pazartesi</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Ramazan Bayramı (Arife)</div>
+                <div class="day-hicri">30 Ramazan 1447</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">19 Mart 2026</div>
+                <div class="day-dayname">Perşembe</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Ramazan Bayramı (1. Gün)</div>
+                <div class="day-hicri">1 Şevval 1447</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">20 Mart 2026</div>
+                <div class="day-dayname">Cuma</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Kurban Bayramı (Arife)</div>
+                <div class="day-hicri">9 Zilhicce 1447</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">26 Mayıs 2026</div>
+                <div class="day-dayname">Salı</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Kurban Bayramı (1. Gün)</div>
+                <div class="day-hicri">10 Zilhicce 1447</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">27 Mayıs 2026</div>
+                <div class="day-dayname">Çarşamba</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Hicri Yılbaşı</div>
+                <div class="day-hicri">1 Muharrem 1448</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">16 Haziran 2026</div>
+                <div class="day-dayname">Salı</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Aşure Günü</div>
+                <div class="day-hicri">10 Muharrem 1448</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">25 Haziran 2026</div>
+                <div class="day-dayname">Perşembe</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-info">
+                <div class="day-name">Mevlid Kandili</div>
+                <div class="day-hicri">Rebiülevvel Ayı, 12. Gece</div>
+            </div>
+            <div class="day-date-badge">
+                <div class="day-date">3 Eylül 2026</div>
+                <div class="day-dayname">Perşembe</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    © Ayetin Vakti • <span>Huzur ve İbadet Rehberliğiniz</span>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let isLight = (savedTheme === 'light') || (!savedTheme && !systemPrefersDark);
+        
+        if (isLight) {
+            document.documentElement.classList.add('light-mode');
+            document.body.classList.add('light-mode');
+        }
+    });
+</script>
+</body>
+</html>
