@@ -177,7 +177,7 @@
             padding: 8px 12px;
             border-radius: 12px;
             text-align: center;
-            min-width: 95px;
+            min-width: 110px;
         }
 
         .day-date {
@@ -190,6 +190,28 @@
             font-size: 0.72rem;
             color: var(--text-muted);
             margin-top: 2px;
+        }
+
+        /* Yeni Eklenen Kalan Gün Sayacı Tasarımı */
+        .day-countdown {
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 4px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .countdown-future {
+            color: var(--accent-color);
+            background: rgba(16, 185, 129, 0.15);
+        }
+        .countdown-today {
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.15);
+        }
+        .countdown-past {
+            color: var(--text-muted);
+            background: rgba(148, 163, 184, 0.1);
         }
 
         .footer {
@@ -225,7 +247,7 @@
     </div>
 
     <div class="days-list">
-        <div class="day-card">
+        <div class="day-card" data-date="2025-12-25">
             <div class="day-info">
                 <div class="day-name" data-i18n="regaip_kandili">Regaip Kandili</div>
                 <div class="day-hicri" data-i18n="regaip_hicri">Recep Ayı, İlk Perşembe Gecesi</div>
@@ -233,10 +255,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_1">25 Aralık 2025</div>
                 <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-01-15">
             <div class="day-info">
                 <div class="day-name" data-i18n="mirac_kandili">Miraç Kandili</div>
                 <div class="day-hicri" data-i18n="mirac_hicri">Recep Ayı, 27. Gece</div>
@@ -244,10 +267,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_2">15 Ocak 2026</div>
                 <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-02-01">
             <div class="day-info">
                 <div class="day-name" data-i18n="berat_kandili">Berat Kandili</div>
                 <div class="day-hicri" data-i18n="berat_hicri">Şaban Ayı, 15. Gece</div>
@@ -255,10 +279,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_3">1 Şubat 2026</div>
                 <div class="day-dayname" data-i18n="pazar">Pazar</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-02-18">
             <div class="day-info">
                 <div class="day-name" data-i18n="ramazan_baslangic">Ramazan Başlangıcı (İlk Sahur)</div>
                 <div class="day-hicri" data-i18n="hicri_1">1 Ramazan 1447</div>
@@ -266,10 +291,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_4">18 Şubat 2026</div>
                 <div class="day-dayname" data-i18n="carsamba">Çarşamba</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-03-16">
             <div class="day-info">
                 <div class="day-name" data-i18n="kadir_gecesi">Kadir Gecesi</div>
                 <div class="day-hicri" data-i18n="kadir_hicri">Ramazan Ayı, 27. Gece</div>
@@ -277,10 +303,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_5">16 Mart 2026</div>
                 <div class="day-dayname" data-i18n="pazartesi">Pazartesi</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-03-19">
             <div class="day-info">
                 <div class="day-name" data-i18n="ramazan_bayrami_arife">Ramazan Bayramı (Arife)</div>
                 <div class="day-hicri" data-i18n="hicri_2">30 Ramazan 1447</div>
@@ -288,10 +315,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_6">19 Mart 2026</div>
                 <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-03-20">
             <div class="day-info">
                 <div class="day-name" data-i18n="ramazan_bayrami_1">Ramazan Bayramı (1. Gün)</div>
                 <div class="day-hicri" data-i18n="hicri_3">1 Şevval 1447</div>
@@ -299,10 +327,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_7">20 Mart 2026</div>
                 <div class="day-dayname" data-i18n="cuma">Cuma</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-05-26">
             <div class="day-info">
                 <div class="day-name" data-i18n="kurban_bayrami_arife">Kurban Bayramı (Arife)</div>
                 <div class="day-hicri" data-i18n="hicri_4">9 Zilhicce 1447</div>
@@ -310,10 +339,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_8">26 Mayıs 2026</div>
                 <div class="day-dayname" data-i18n="sali">Salı</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-05-27">
             <div class="day-info">
                 <div class="day-name" data-i18n="kurban_bayrami_1">Kurban Bayramı (1. Gün)</div>
                 <div class="day-hicri" data-i18n="hicri_5">10 Zilhicce 1447</div>
@@ -321,10 +351,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_9">27 Mayıs 2026</div>
                 <div class="day-dayname" data-i18n="carsamba">Çarşamba</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-06-16">
             <div class="day-info">
                 <div class="day-name" data-i18n="hicri_yilbasi">Hicri Yılbaşı</div>
                 <div class="day-hicri" data-i18n="hicri_6">1 Muharrem 1448</div>
@@ -332,10 +363,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_10">16 Haziran 2026</div>
                 <div class="day-dayname" data-i18n="sali">Salı</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-06-25">
             <div class="day-info">
                 <div class="day-name" data-i18n="asure_gunu">Aşure Günü</div>
                 <div class="day-hicri" data-i18n="hicri_7">10 Muharrem 1448</div>
@@ -343,10 +375,11 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_11">25 Haziran 2026</div>
                 <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
 
-        <div class="day-card">
+        <div class="day-card" data-date="2026-09-03">
             <div class="day-info">
                 <div class="day-name" data-i18n="mevlid_kandili">Mevlid Kandili</div>
                 <div class="day-hicri" data-i18n="mevlid_hicri">Rebiülevvel Ayı, 12. Gece</div>
@@ -354,6 +387,7 @@
             <div class="day-date-badge">
                 <div class="day-date" data-i18n="tarih_12">3 Eylül 2026</div>
                 <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                <div class="day-countdown">...</div>
             </div>
         </div>
     </div>
@@ -364,7 +398,7 @@
 </div>
 
 <script>
-    // Tam Kapsamlı Dil Sözlüğü (İsimler, Tarihler ve Açıklamalar Tamamen Çevrildi)
+    // Tam Kapsamlı Dil Sözlüğü
     const translations = {
         tr: {
             dini_gunler_title: "Dini Günler | Ayetin Vakti",
@@ -413,7 +447,10 @@
             tarih_10: "16 Haziran 2026",
             tarih_11: "25 Haziran 2026",
             tarih_12: "3 Eylül 2026",
-            footer_text: "Huzur ve İbadet Rehberliğiniz"
+            footer_text: "Huzur ve İbadet Rehberliğiniz",
+            bugun: "Bugün ✨",
+            gecmis: "Geçti",
+            gun_kaldi: "gün kaldı"
         },
         en: {
             dini_gunler_title: "Religious Days | Ayetin Vakti",
@@ -462,7 +499,10 @@
             tarih_10: "June 16, 2026",
             tarih_11: "June 25, 2026",
             tarih_12: "September 3, 2026",
-            footer_text: "Your Guide to Peace and Worship"
+            footer_text: "Your Guide to Peace and Worship",
+            bugun: "Today ✨",
+            gecmis: "Passed",
+            gun_kaldi: "days left"
         },
         ar: {
             dini_gunler_title: "الأيام الدينية | آية الوقت",
@@ -511,7 +551,10 @@
             tarih_10: "16 يونيو 2026",
             tarih_11: "25 يونيو 2026",
             tarih_12: "3 سبتمبر 2026",
-            footer_text: "دليلك إلى السلام والعبادة"
+            footer_text: "دليلك إلى السلام والعبادة",
+            bugun: "اليوم ✨",
+            gecmis: "مضى",
+            gun_kaldi: "أيام متبقية"
         }
     };
 
@@ -528,6 +571,8 @@
 
         // Dil Uygulama Mantığı
         const currentLang = localStorage.getItem('user_lang') || 'tr';
+        const t = translations[currentLang] || translations['tr'];
+
         if (translations[currentLang]) {
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
@@ -539,13 +584,42 @@
                     }
                 }
             });
-            // Arapça seçildiyse sağdan sola (RTL) düzeni tetikle
+            
             if (currentLang === 'ar') {
                 document.documentElement.setAttribute('dir', 'rtl');
             } else {
                 document.documentElement.setAttribute('dir', 'ltr');
             }
         }
+
+        // --- Kalan Gün Hesaplama Mantığı ---
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Saat farkını sıfırla
+
+        document.querySelectorAll('.day-card').forEach(card => {
+            const dateStr = card.getAttribute('data-date');
+            if (!dateStr) return;
+
+            const targetDate = new Date(dateStr);
+            targetDate.setHours(0, 0, 0, 0);
+
+            const diffTime = targetDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const countdownEl = card.querySelector('.day-countdown');
+            if (!countdownEl) return;
+
+            if (diffDays === 0) {
+                countdownEl.textContent = t.bugun;
+                countdownEl.className = 'day-countdown countdown-today';
+            } else if (diffDays > 0) {
+                countdownEl.textContent = `${diffDays} ${t.gun_kaldi}`;
+                countdownEl.className = 'day-countdown countdown-future';
+            } else {
+                countdownEl.textContent = t.gecmis;
+                countdownEl.className = 'day-countdown countdown-past';
+            }
+        });
     });
 </script>
 </body>
