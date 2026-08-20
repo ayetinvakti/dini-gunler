@@ -99,6 +99,23 @@
             text-decoration: none;
         }
 
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            transition: transform 0.2s ease;
+        }
+
+        .theme-toggle-btn:active {
+            transform: scale(0.9);
+        }
+
         .app-title {
             font-size: 1.15rem;
             font-weight: 700;
@@ -238,6 +255,7 @@
             <a href="https://ayetinvakti.github.io/" class="back-btn" aria-label="Geri Dön">←</a>
             <a href="#" class="app-title" data-i18n="nav_dini_gunler">Dini Günler ve Geceler</a>
         </div>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Temayı Değiştir">🌙</button>
     </header>
 
     <div class="page-header-card">
@@ -483,8 +501,8 @@
             hicri_3: "1 Shawwal 1447",
             hicri_4: "9 Dhu al-Hijjah 1447",
             hicri_5: "10 Dhu al-Hijjah 1447",
-            hicri_6: "1 Muharram 1448",
-            hicri_7: "10 Muharram 1448",
+            hicri_6: "1 Muharrem 1448",
+            hicri_7: "10 Muharrem 1448",
             tarih_1: "December 25, 2025",
             tarih_2: "January 15, 2026",
             tarih_3: "February 2, 2026",
@@ -561,9 +579,28 @@
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         let isLight = (savedTheme === 'light') || (!savedTheme && !systemPrefersDark);
         
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        
+        // Tema ikonunu başlangıçta duruma göre ayarla
+        if (themeToggleBtn) {
+            themeToggleBtn.textContent = isLight ? '☀️' : '🌙';
+        }
+
         if (isLight) {
             document.documentElement.classList.add('light-mode');
             document.body.classList.add('light-mode');
+        }
+
+        // Tema Değiştirme Butonu Dinleyicisi
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('light-mode');
+                document.body.classList.toggle('light-mode');
+                
+                const currentIsLight = document.documentElement.classList.contains('light-mode');
+                localStorage.setItem('theme', currentIsLight ? 'light' : 'dark');
+                themeToggleBtn.textContent = currentIsLight ? '☀️' : '🌙';
+            });
         }
 
         const currentLang = localStorage.getItem('user_lang') || 'tr';
