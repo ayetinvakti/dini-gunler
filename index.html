@@ -175,24 +175,28 @@
             flex-direction: column;
             gap: 4px;
             flex: 1;
+            min-width: 0; /* Taşmaları önler */
         }
 
         .day-name {
             font-size: 1rem;
             font-weight: 700;
             color: var(--text-color);
+            line-height: 1.3;
         }
 
         .day-hicri {
             font-size: 0.8rem;
             color: var(--accent-color);
             font-weight: 600;
+            line-height: 1.2;
         }
 
         .day-right-group {
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-shrink: 0;
         }
 
         /* Bildirim Zil Butonu Stili */
@@ -209,6 +213,7 @@
             justify-content: center;
             font-size: 1.1rem;
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
         .notif-btn:hover {
@@ -225,16 +230,18 @@
         .day-date-badge {
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid var(--border-color);
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 12px;
             text-align: center;
-            min-width: 105px;
+            width: 115px; /* Sabit genişlik ile tüm tarihler tam hizada durur */
+            flex-shrink: 0;
         }
 
         .day-date {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--text-color);
+            white-space: nowrap;
         }
 
         .day-dayname {
@@ -244,12 +251,13 @@
         }
 
         .day-countdown {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             margin-top: 4px;
             padding: 2px 6px;
             border-radius: 6px;
             display: inline-block;
+            white-space: nowrap;
         }
         .countdown-future {
             color: var(--accent-color);
@@ -656,7 +664,6 @@
     const currentLang = localStorage.getItem('user_lang') || 'tr';
     const t = translations[currentLang] || translations['tr'];
 
-    // Bildirim Durumlarını Kontrol Et ve Butonları İşaretle
     function updateNotificationButtonsUI() {
         const savedNotifs = JSON.parse(localStorage.getItem('saved_religious_notifs') || '{}');
         document.querySelectorAll('.day-card').forEach(card => {
@@ -664,15 +671,12 @@
             const btn = card.querySelector('.notif-btn');
             if (btn && savedNotifs[id]) {
                 btn.classList.add('active');
-                btn.textContent = '🔔';
             } else if (btn) {
                 btn.classList.remove('active');
-                btn.textContent = '🔔';
             }
         });
     }
 
-    // Bildirim Ekle / Kaldır Fonksiyonu
     async function toggleNotification(id, title, dateStr) {
         if (!('Notification' in window)) {
             alert("Tarayıcınız bildirim özelliğini desteklemiyor.");
@@ -702,7 +706,6 @@
             updateNotificationButtonsUI();
             alert(t.notif_success);
             
-            // Test amaçlı hemen bir bildirim tetikleyelim ki çalıştığını görsünler
             try {
                 navigator.serviceWorker.ready.then(reg => {
                     reg.showNotification("Ayetin Vakti - Hatırlatıcı", {
@@ -792,7 +795,6 @@
             }
         });
 
-        // Bildirim butonlarının aktiflik durumunu yükle
         updateNotificationButtonsUI();
     });
 </script>
