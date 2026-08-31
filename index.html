@@ -174,6 +174,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
+            flex: 1;
         }
 
         .day-name {
@@ -188,13 +189,46 @@
             font-weight: 600;
         }
 
+        .day-right-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Bildirim Zil Butonu Stili */
+        .notif-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+
+        .notif-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .notif-btn.active {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
         .day-date-badge {
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid var(--border-color);
             padding: 8px 12px;
             border-radius: 12px;
             text-align: center;
-            min-width: 110px;
+            min-width: 105px;
         }
 
         .day-date {
@@ -260,151 +294,187 @@
 
     <div class="page-header-card">
         <div class="page-title" data-i18n="header_mubarek_gunler">📅 Mübarek Gün ve Geceler</div>
-        <div class="page-desc" data-i18n="header_desc">Hicri takvime göre yıl içerisindeki kandiller, dini bayramlar ve önemli gecelerin listesi.</div>
+        <div class="page-desc" data-i18n="header_desc">Hicri takvime göre yıl içerisindeki kandiller, dini bayramlar ve önemli gecelerin listesi. Bildirim kurarak yaklaşan günleri zamanında hatırlayabilirsiniz.</div>
     </div>
 
     <div class="days-list">
-        <div class="day-card" data-date="2025-12-25">
+        <div class="day-card" data-date="2025-12-25" data-id="regaip">
             <div class="day-info">
                 <div class="day-name" data-i18n="regaip_kandili">Regaip Kandili</div>
                 <div class="day-hicri" data-i18n="regaip_hicri">Recep Ayı, İlk Perşembe Gecesi</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_1">25 Aralık 2025</div>
-                <div class="day-dayname" data-i18n="persembe">Perşembe</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('regaip', 'Regaip Kandili', '2025-12-25')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_1">25 Aralık 2025</div>
+                    <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-01-15">
+        <div class="day-card" data-date="2026-01-15" data-id="mirac">
             <div class="day-info">
                 <div class="day-name" data-i18n="mirac_kandili">Miraç Kandili</div>
                 <div class="day-hicri" data-i18n="mirac_hicri">Recep Ayı, 27. Gece</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_2">15 Ocak 2026</div>
-                <div class="day-dayname" data-i18n="persembe">Perşembe</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('mirac', 'Miraç Kandili', '2026-01-15')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_2">15 Ocak 2026</div>
+                    <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-02-02">
+        <div class="day-card" data-date="2026-02-02" data-id="berat">
             <div class="day-info">
                 <div class="day-name" data-i18n="berat_kandili">Berat Kandili</div>
                 <div class="day-hicri" data-i18n="berat_hicri">Şaban Ayı, 15. Gece</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_3">2 Şubat 2026</div>
-                <div class="day-dayname" data-i18n="pazartesi">Pazartesi</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('berat', 'Berat Kandili', '2026-02-02')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_3">2 Şubat 2026</div>
+                    <div class="day-dayname" data-i18n="pazartesi">Pazartesi</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-02-19">
+        <div class="day-card" data-date="2026-02-19" data-id="ramazan_basla">
             <div class="day-info">
                 <div class="day-name" data-i18n="ramazan_baslangic">Ramazan Başlangıcı (İlk Sahur)</div>
                 <div class="day-hicri" data-i18n="hicri_1">1 Ramazan 1447</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_4">19 Şubat 2026</div>
-                <div class="day-dayname" data-i18n="persembe">Perşembe</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('ramazan_basla', 'Ramazan Başlangıcı (İlk Sahur)', '2026-02-19')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_4">19 Şubat 2026</div>
+                    <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-03-16">
+        <div class="day-card" data-date="2026-03-16" data-id="kadir">
             <div class="day-info">
                 <div class="day-name" data-i18n="kadir_gecesi">Kadir Gecesi</div>
                 <div class="day-hicri" data-i18n="kadir_hicri">Ramazan Ayı, 27. Gece</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_5">16 Mart 2026</div>
-                <div class="day-dayname" data-i18n="pazartesi">Pazartesi</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('kadir', 'Kadir Gecesi', '2026-03-16')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_5">16 Mart 2026</div>
+                    <div class="day-dayname" data-i18n="pazartesi">Pazartesi</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-03-19">
+        <div class="day-card" data-date="2026-03-19" data-id="ramazan_arife">
             <div class="day-info">
                 <div class="day-name" data-i18n="ramazan_bayrami_arife">Ramazan Bayramı (Arife)</div>
                 <div class="day-hicri" data-i18n="hicri_2">30 Ramazan 1447</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_6">19 Mart 2026</div>
-                <div class="day-dayname" data-i18n="persembe">Perşembe</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('ramazan_arife', 'Ramazan Bayramı (Arife)', '2026-03-19')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_6">19 Mart 2026</div>
+                    <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-03-20">
+        <div class="day-card" data-date="2026-03-20" data-id="ramazan_1">
             <div class="day-info">
                 <div class="day-name" data-i18n="ramazan_bayrami_1">Ramazan Bayramı (1. Gün)</div>
                 <div class="day-hicri" data-i18n="hicri_3">1 Şevval 1447</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_7">20 Mart 2026</div>
-                <div class="day-dayname" data-i18n="cuma">Cuma</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('ramazan_1', 'Ramazan Bayramı (1. Gün)', '2026-03-20')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_7">20 Mart 2026</div>
+                    <div class="day-dayname" data-i18n="cuma">Cuma</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-05-26">
+        <div class="day-card" data-date="2026-05-26" data-id="kurban_arife">
             <div class="day-info">
                 <div class="day-name" data-i18n="kurban_bayrami_arife">Kurban Bayramı (Arife)</div>
                 <div class="day-hicri" data-i18n="hicri_4">9 Zilhicce 1447</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_8">26 Mayıs 2026</div>
-                <div class="day-dayname" data-i18n="sali">Salı</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('kurban_arife', 'Kurban Bayramı (Arife)', '2026-05-26')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_8">26 Mayıs 2026</div>
+                    <div class="day-dayname" data-i18n="sali">Salı</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-05-27">
+        <div class="day-card" data-date="2026-05-27" data-id="kurban_1">
             <div class="day-info">
                 <div class="day-name" data-i18n="kurban_bayrami_1">Kurban Bayramı (1. Gün)</div>
                 <div class="day-hicri" data-i18n="hicri_5">10 Zilhicce 1447</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_9">27 Mayıs 2026</div>
-                <div class="day-dayname" data-i18n="carsamba">Çarşamba</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('kurban_1', 'Kurban Bayramı (1. Gün)', '2026-05-27')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_9">27 Mayıs 2026</div>
+                    <div class="day-dayname" data-i18n="carsamba">Çarşamba</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-06-16">
+        <div class="day-card" data-date="2026-06-16" data-id="hicri_yilbasi">
             <div class="day-info">
                 <div class="day-name" data-i18n="hicri_yilbasi">Hicri Yılbaşı</div>
                 <div class="day-hicri" data-i18n="hicri_6">1 Muharrem 1448</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_10">16 Haziran 2026</div>
-                <div class="day-dayname" data-i18n="sali">Salı</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('hicri_yilbasi', 'Hicri Yılbaşı', '2026-06-16')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_10">16 Haziran 2026</div>
+                    <div class="day-dayname" data-i18n="sali">Salı</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-06-25">
+        <div class="day-card" data-date="2026-06-25" data-id="asure">
             <div class="day-info">
                 <div class="day-name" data-i18n="asure_gunu">Aşure Günü</div>
                 <div class="day-hicri" data-i18n="hicri_7">10 Muharrem 1448</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_11">25 Haziran 2026</div>
-                <div class="day-dayname" data-i18n="persembe">Perşembe</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('asure', 'Aşure Günü', '2026-06-25')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_11">25 Haziran 2026</div>
+                    <div class="day-dayname" data-i18n="persembe">Perşembe</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
 
-        <div class="day-card" data-date="2026-08-24">
+        <div class="day-card" data-date="2026-08-24" data-id="mevlid">
             <div class="day-info">
                 <div class="day-name" data-i18n="mevlid_kandili">Mevlid Kandili</div>
                 <div class="day-hicri" data-i18n="mevlid_hicri">Rebiülevvel Ayı, 12. Gece</div>
             </div>
-            <div class="day-date-badge">
-                <div class="day-date" data-i18n="tarih_12">24 Ağustos 2026</div>
-                <div class="day-dayname" data-i18n="pazartesi">Pazartesi</div>
-                <div class="day-countdown">...</div>
+            <div class="day-right-group">
+                <button class="notif-btn" onclick="toggleNotification('mevlid', 'Mevlid Kandili', '2026-08-24')" title="Bildirim Kur / Kaldır">🔔</button>
+                <div class="day-date-badge">
+                    <div class="day-date" data-i18n="tarih_12">24 Ağustos 2026</div>
+                    <div class="day-dayname" data-i18n="pazartesi">Pazartesi</div>
+                    <div class="day-countdown">...</div>
+                </div>
             </div>
         </div>
     </div>
@@ -420,7 +490,7 @@
             dini_gunler_title: "Dini Günler | Ayetin Vakti",
             nav_dini_gunler: "Dini Günler ve Geceler",
             header_mubarek_gunler: "📅 Mübarek Gün ve Geceler",
-            header_desc: "Hicri takvime göre yıl içerisindeki kandiller, dini bayramlar ve önemli gecelerin listesi.",
+            header_desc: "Hicri takvime göre yıl içerisindeki kandiller, dini bayramlar ve önemli gecelerin listesi. Bildirim kurarak yaklaşan günleri zamanında hatırlayabilirsiniz.",
             regaip_kandili: "Regaip Kandili",
             regaip_hicri: "Recep Ayı, İlk Perşembe Gecesi",
             mirac_kandili: "Miraç Kandili",
@@ -466,13 +536,16 @@
             footer_text: "Huzur ve İbadet Rehberliğiniz",
             bugun: "Bugün ✨",
             gecmis: "Geçti",
-            gun_kaldi: "gün kaldı"
+            gun_kaldi: "gün kaldı",
+            notif_success: "Bu gün için bildirim başarıyla kuruldu! Günü geldiğinde hatırlatılacak.",
+            notif_removed: "Bildirim kaldırıldı.",
+            notif_denied: "Bildirim izni vermediğiniz için hatırlatıcı kurulamadı."
         },
         en: {
             dini_gunler_title: "Religious Days | Ayetin Vakti",
             nav_dini_gunler: "Religious Days and Nights",
             header_mubarek_gunler: "📅 Blessed Days and Nights",
-            header_desc: "List of holy nights, religious holidays, and important dates throughout the year according to the Hijri calendar.",
+            header_desc: "List of holy nights, religious holidays, and important dates throughout the year according to the Hijri calendar. Set notifications to stay reminded.",
             regaip_kandili: "Night of Regaip",
             regaip_hicri: "Month of Rajab, First Thursday Night",
             mirac_kandili: "Night of Isra and Miraj",
@@ -518,7 +591,10 @@
             footer_text: "Your Guide to Peace and Worship",
             bugun: "Today ✨",
             gecmis: "Passed",
-            gun_kaldi: "days left"
+            gun_kaldi: "days left",
+            notif_success: "Notification successfully set for this day!",
+            notif_removed: "Notification removed.",
+            notif_denied: "Notification permission denied."
         },
         ar: {
             dini_gunler_title: "الأيام الدينية | آية الوقت",
@@ -570,9 +646,77 @@
             footer_text: "دليلك إلى السلام والعبادة",
             bugun: "اليوم ✨",
             gecmis: "مضى",
-            gun_kaldi: "أيام متبقية"
+            gun_kaldi: "أيام متبقية",
+            notif_success: "تم ضبط الإشعار بنجاح لهذا اليوم!",
+            notif_removed: "تم إزالة الإشعار.",
+            notif_denied: "تم رفض إذن الإشعارات."
         }
     };
+
+    const currentLang = localStorage.getItem('user_lang') || 'tr';
+    const t = translations[currentLang] || translations['tr'];
+
+    // Bildirim Durumlarını Kontrol Et ve Butonları İşaretle
+    function updateNotificationButtonsUI() {
+        const savedNotifs = JSON.parse(localStorage.getItem('saved_religious_notifs') || '{}');
+        document.querySelectorAll('.day-card').forEach(card => {
+            const id = card.getAttribute('data-id');
+            const btn = card.querySelector('.notif-btn');
+            if (btn && savedNotifs[id]) {
+                btn.classList.add('active');
+                btn.textContent = '🔔';
+            } else if (btn) {
+                btn.classList.remove('active');
+                btn.textContent = '🔔';
+            }
+        });
+    }
+
+    // Bildirim Ekle / Kaldır Fonksiyonu
+    async function toggleNotification(id, title, dateStr) {
+        if (!('Notification' in window)) {
+            alert("Tarayıcınız bildirim özelliğini desteklemiyor.");
+            return;
+        }
+
+        let permission = Notification.permission;
+        if (permission !== 'granted') {
+            permission = await Notification.requestPermission();
+        }
+
+        if (permission !== 'granted') {
+            alert(t.notif_denied);
+            return;
+        }
+
+        let savedNotifs = JSON.parse(localStorage.getItem('saved_religious_notifs') || '{}');
+        
+        if (savedNotifs[id]) {
+            delete savedNotifs[id];
+            localStorage.setItem('saved_religious_notifs', JSON.stringify(savedNotifs));
+            updateNotificationButtonsUI();
+            alert(t.notif_removed);
+        } else {
+            savedNotifs[id] = { title, date: dateStr };
+            localStorage.setItem('saved_religious_notifs', JSON.stringify(savedNotifs));
+            updateNotificationButtonsUI();
+            alert(t.notif_success);
+            
+            // Test amaçlı hemen bir bildirim tetikleyelim ki çalıştığını görsünler
+            try {
+                navigator.serviceWorker.ready.then(reg => {
+                    reg.showNotification("Ayetin Vakti - Hatırlatıcı", {
+                        body: `${title} için bildirim başarıyla ayarlandı! (${dateStr})`,
+                        icon: '/favicon.ico'
+                    });
+                });
+            } catch (e) {
+                new Notification("Ayetin Vakti - Hatırlatıcı", {
+                    body: `${title} için bildirim başarıyla ayarlandı! (${dateStr})`
+                });
+            }
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('theme');
@@ -581,7 +725,6 @@
         
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         
-        // Tema ikonunu başlangıçta duruma göre ayarla
         if (themeToggleBtn) {
             themeToggleBtn.textContent = isLight ? '☀️' : '🌙';
         }
@@ -591,7 +734,6 @@
             document.body.classList.add('light-mode');
         }
 
-        // Tema Değiştirme Butonu Dinleyicisi
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
                 document.documentElement.classList.toggle('light-mode');
@@ -602,9 +744,6 @@
                 themeToggleBtn.textContent = currentIsLight ? '☀️' : '🌙';
             });
         }
-
-        const currentLang = localStorage.getItem('user_lang') || 'tr';
-        const t = translations[currentLang] || translations['tr'];
 
         if (translations[currentLang]) {
             document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -652,6 +791,9 @@
                 countdownEl.className = 'day-countdown countdown-past';
             }
         });
+
+        // Bildirim butonlarının aktiflik durumunu yükle
+        updateNotificationButtonsUI();
     });
 </script>
 </body>
