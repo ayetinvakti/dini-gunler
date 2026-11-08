@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <script src="https://ayetinvakti.github.io/finish.js?v=5"></script>
     <script src="https://ayetinvakti.github.io/menu.js" defer></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
@@ -201,16 +202,16 @@
 <body>
 
 <div class="container">
-    <header class="navbar">
+    <header class="navbar fin-card">
         <div class="nav-left">
             <a href="https://ayetinvakti.github.io/" class="back-btn" aria-label="Geri Dön" title="Geri Dön">←</a>
-            <button class="menu-btn" data-drawer-toggle aria-label="Menü" aria-controls="avmDrawer" title="Menü">☰</button>
+            <button class="menu-btn fin-btn" data-drawer-toggle aria-label="Menü" aria-controls="avmDrawer" title="Menü">☰</button>
         </div>
-        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Temayı Değiştir">🌙</button>
+        <button id="themeToggleBtn" class="theme-toggle-btn fin-btn" aria-label="Temayı Değiştir">🌙</button>
     </header>
     <h1 class="app-title" data-i18n="nav_dini_gunler">Dini Günler ve Geceler</h1>
 
-    <div class="page-header-card">
+    <div class="page-header-card fin-card">
         <div class="page-title" data-i18n="header_mubarek_gunler">📅 Mübarek Gün ve Geceler</div>
         <div class="page-desc" data-i18n="header_desc">Hicri takvime göre yaklaşan kandiller, dini bayramlar ve önemli geceler. Bildirim kurarak günü zamanında hatırlayabilirsiniz.</div>
     </div>
@@ -419,13 +420,13 @@
             const dayName = fmtWeekday(ev.date) + (ev.evening ? ` • ${t.aksam}` : '');
 
             return `
-            <div class="day-card ${i === 0 ? 'next' : ''}" data-date="${ev.date}" data-id="${ev.id}">
+            <div class="day-card fin-card ${i === 0 ? 'next' : ''}" data-date="${ev.date}" data-id="${ev.id}">
                 <div class="day-info">
                     <div class="day-name">${esc(t[ev.name])}</div>
                     <div class="day-hicri">${esc(hicriText(ev))}</div>
                 </div>
                 <div class="day-right-group">
-                    <button class="notif-btn" onclick="toggleNotification('${ev.id}')" title="🔔">🔔</button>
+                    <button class="notif-btn fin-btn" onclick="toggleNotification('${ev.id}')" title="🔔">🔔</button>
                     <div class="day-date-badge">
                         <div class="day-date">${esc(fmtDate(ev.date))}</div>
                         <div class="day-dayname">${esc(dayName)}</div>
