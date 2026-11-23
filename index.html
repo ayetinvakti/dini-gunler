@@ -300,6 +300,7 @@
             reminder_title: "Ayetin Vakti - Hatırlatıcı",
             notif_unsupported: "Tarayıcınız bildirim özelliğini desteklemiyor.",
             notif_success: "Hatırlatıcı kuruldu! Günü yaklaştığında (bir gün önce ve gün içinde) sayfayı açtığınızda bildirim alırsınız.",
+            notif_success_push: "Hatırlatıcı kuruldu! Bir gün önce ve gün içinde, sabah 09:00'da (Türkiye saati) sayfa kapalıyken bile bildirim alırsınız.",
             notif_removed: "Bildirim kaldırıldı.",
             notif_denied: "Bildirim izni vermediğiniz için hatırlatıcı kurulamadı.",
             notif_body_today: "bugün!",
@@ -338,6 +339,7 @@
             reminder_title: "Ayetin Vakti - Reminder",
             notif_unsupported: "Your browser does not support notifications.",
             notif_success: "Reminder set! You'll get a notification when you open this page the day before and on the day.",
+            notif_success_push: "Reminder set! You'll get a notification at 09:00 (Turkey time) the day before and on the day, even when the page is closed.",
             notif_removed: "Notification removed.",
             notif_denied: "Notification permission denied.",
             notif_body_today: "is today!",
@@ -376,6 +378,7 @@
             reminder_title: "آية الوقت - تذكير",
             notif_unsupported: "متصفحك لا يدعم الإشعارات.",
             notif_success: "تم ضبط التذكير! ستصلك إشعارات عند فتح الصفحة قبل اليوم بيوم وفي اليوم نفسه.",
+            notif_success_push: "تم ضبط التذكير! ستصلك إشعارات الساعة 09:00 (بتوقيت تركيا) قبل اليوم بيوم وفي اليوم نفسه حتى عند إغلاق الصفحة.",
             notif_removed: "تم إزالة الإشعار.",
             notif_denied: "تم رفض إذن الإشعارات.",
             notif_body_today: "اليوم!",
@@ -461,6 +464,73 @@
         catch (e) { return {}; }
     }
 
+    // --- Arka plan bildirimi (Web Push): sayfa kapalıyken de bildirim ---
+    const PUSH_API = 'https://ayetin-vakti-push.hercayi9.workers.dev';
+
+    function pushAvailable() { return 'serviceWorker' in navigator && 'PushManager' in window; }
+    function b64uToU8(str) {
+        const p = str.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (str.length % 4)) % 4);
+        const bin = atob(p);
+        const out = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+        return out;
+    }
+    function u8ToB64u(buf) {
+        const b = new Uint8Array(buf);
+        let x = '';
+        for (let i = 0; i < b.length; i++) x += String.fromCharCode(b[i]);
+        return btoa(x).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+    async function getSW() {
+        try {
+            let reg = await navigator.serviceWorker.getRegistration('/');
+            if (!reg) reg = await navigator.serviceWorker.register('/sw.js');
+            return await Promise.race([
+                navigator.serviceWorker.ready,
+                new Promise(r => setTimeout(() => r(null), 4000))
+            ]);
+        } catch (e) { return null; }
+    }
+    // Seçili (geçmemiş) günleri sunucuya bildirir. Sunucu kaydı başarılı ve en az bir gün seçiliyse true döner.
+    async function eventsSync() {
+        const flag = 'dg_push_ok';
+        if (!('Notification' in window) || Notification.permission !== 'granted' || !pushAvailable()) {
+            try { localStorage.removeItem(flag); } catch (e) {}
+            return false;
+        }
+        const ids = Object.keys(getSaved()).filter(id => {
+            const ev = EVENTS.find(e => e.id === id);
+            return ev && daysUntil(ev.date) >= 0;
+        });
+        try {
+            const reg = await getSW();
+            if (!reg || !reg.pushManager) return false;
+            const keyRes = await fetch(PUSH_API + '/vapid');
+            const serverKey = (await keyRes.json()).key;
+            let sub = await reg.pushManager.getSubscription();
+            if (sub && sub.options && sub.options.applicationServerKey &&
+                u8ToB64u(sub.options.applicationServerKey) !== serverKey) {
+                await sub.unsubscribe();
+                sub = null;
+            }
+            if (!sub) {
+                if (!ids.length) { localStorage.removeItem(flag); return false; }
+                sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64uToU8(serverKey) });
+            }
+            const res = await fetch(PUSH_API + '/events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ subscription: sub.toJSON(), events: ids, lang: currentLang })
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            if (ids.length) localStorage.setItem(flag, '1'); else localStorage.removeItem(flag);
+            return ids.length > 0;
+        } catch (e) {
+            try { localStorage.removeItem(flag); } catch (x) {}
+            return false;
+        }
+    }
+
     function updateNotificationButtonsUI() {
         const saved = getSaved();
         document.querySelectorAll('.day-card').forEach(card => {
@@ -494,6 +564,7 @@
             delete saved[id];
             localStorage.setItem('saved_religious_notifs', JSON.stringify(saved));
             updateNotificationButtonsUI();
+            await eventsSync();
             alert(t.notif_removed);
             return;
         }
@@ -505,7 +576,8 @@
         saved[id] = { date: ev.date };
         localStorage.setItem('saved_religious_notifs', JSON.stringify(saved));
         updateNotificationButtonsUI();
-        alert(t.notif_success);
+        const pushOk = await eventsSync();
+        alert(pushOk ? t.notif_success_push : t.notif_success);
     }
 
     // Sayfa açıldığında: kurulu hatırlatıcılardan bugün/yarın olanları bildir (günde bir kez)
@@ -515,9 +587,10 @@
         let shown;
         try { shown = JSON.parse(localStorage.getItem('shown_religious_notifs') || '{}'); } catch (e) { shown = {}; }
         const todayKey = new Date().toISOString().slice(0, 10);
+        const serverPush = localStorage.getItem('dg_push_ok') === '1';
 
         for (const ev of EVENTS) {
-            if (!saved[ev.id]) continue;
+            if (!saved[ev.id] || serverPush) continue;
             const diff = daysUntil(ev.date);
             if (diff !== 0 && diff !== 1) continue;
             const key = ev.id + '_' + diff;
@@ -573,7 +646,7 @@
         document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
 
         renderEvents();
-        checkDueNotifications();
+        eventsSync().then(checkDueNotifications, checkDueNotifications);
     });
 </script>
 </body>
